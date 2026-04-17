@@ -1,0 +1,54 @@
+<div class="calc-wrapper">
+  <!-- Install button -->
+  @if (pwa.canInstall()) {
+    <button class="install-btn" (click)="installApp()">
+      <span class="install-icon">🐱</span>
+      Установить приложение
+    </button>
+  }
+
+  <div class="calc-card">
+    <!-- Header decoration -->
+    <div class="calc-header">
+      <div class="kitty-face">
+        <div class="kitty-ears">
+          <div class="ear left"></div>
+          <div class="ear right"></div>
+        </div>
+        <div class="kitty-eyes">
+          <span class="eye"></span>
+          <span class="eye"></span>
+        </div>
+        <div class="kitty-nose">▲</div>
+        <div class="kitty-whiskers">
+          <div class="whisker-row left">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="whisker-row right">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="kitty-bow">🎀</div>
+      </div>
+      <h1 class="calc-title">Hello Kitty</h1>
+    </div>
+
+    <!-- Display -->
+    <div class="calc-display">
+      <div class="display-value">{{ display() }}</div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="calc-buttons">
+      @for (btn of buttons; track btn.value + btn.label) {
+        <button
+          class="calc-btn"
+          [class]="'calc-btn btn-' + btn.type"
+          (click)="press(btn)"
+        >
+          {{ btn.label }}
+        </button>
+      }
+    </div>
+  </div>
+</div>

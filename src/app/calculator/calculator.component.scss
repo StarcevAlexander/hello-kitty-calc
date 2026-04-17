@@ -1,0 +1,321 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+:host {
+  display: block;
+  font-family: 'Nunito', sans-serif;
+}
+
+.calc-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 16px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffe4f0 0%, #ffd6eb 40%, #ffb3d9 100%);
+}
+
+// Install button
+.install-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: linear-gradient(135deg, #ff69b4, #ff1493);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 105, 180, 0.5);
+  transition: transform 0.15s, box-shadow 0.15s;
+  animation: pulse 2s infinite;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 105, 180, 0.65);
+  }
+
+  .install-icon { font-size: 20px; }
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 4px 15px rgba(255, 105, 180, 0.5); }
+  50%       { box-shadow: 0 4px 25px rgba(255, 105, 180, 0.8); }
+}
+
+// Main card
+.calc-card {
+  width: 100%;
+  max-width: 340px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border-radius: 32px;
+  box-shadow:
+    0 8px 32px rgba(255, 105, 180, 0.25),
+    0 2px 8px rgba(255, 20, 147, 0.1);
+  overflow: hidden;
+  border: 2px solid rgba(255, 182, 214, 0.6);
+}
+
+// Header
+.calc-header {
+  background: linear-gradient(135deg, #ff8fab 0%, #ff69b4 100%);
+  padding: 20px 16px 16px;
+  text-align: center;
+  position: relative;
+}
+
+.kitty-face {
+  position: relative;
+  display: inline-block;
+  width: 70px;
+  height: 64px;
+  background: #fff;
+  border-radius: 50% 50% 45% 45%;
+  border: 2px solid #ffb6c1;
+  margin-bottom: 4px;
+}
+
+.kitty-ears {
+  position: absolute;
+  top: -18px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 4px;
+
+  .ear {
+    width: 22px;
+    height: 22px;
+    background: #fff;
+    border: 2px solid #ffb6c1;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #ffb6c1;
+      clip-path: polygon(50% 10%, 10% 90%, 90% 90%);
+      left: 50%;
+      top: 30%;
+      transform: translateX(-50%);
+    }
+  }
+}
+
+.kitty-eyes {
+  display: flex;
+  justify-content: space-around;
+  padding: 18px 14px 2px;
+
+  .eye {
+    width: 8px;
+    height: 9px;
+    background: #333;
+    border-radius: 50%;
+    display: block;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 3px;
+      height: 3px;
+      background: #fff;
+      border-radius: 50%;
+      margin-top: 1px;
+      margin-left: 4px;
+    }
+  }
+}
+
+.kitty-nose {
+  text-align: center;
+  font-size: 8px;
+  color: #ff8fab;
+  line-height: 1;
+}
+
+.kitty-whiskers {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 4px 0;
+
+  .whisker-row {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    span {
+      display: block;
+      height: 1px;
+      background: #bbb;
+      border-radius: 1px;
+    }
+
+    &.left span { width: 20px; transform-origin: right; }
+    &.right span { width: 20px; transform-origin: left; }
+
+    span:nth-child(1) { transform: rotate(-5deg); }
+    span:nth-child(2) { transform: rotate(0deg); }
+    span:nth-child(3) { transform: rotate(5deg); }
+  }
+}
+
+.kitty-bow {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  font-size: 18px;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+}
+
+.calc-title {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin: 0;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+
+// Display
+.calc-display {
+  background: linear-gradient(180deg, #fff5f8 0%, #fff0f5 100%);
+  padding: 20px 20px 12px;
+  text-align: right;
+  border-bottom: 1px solid #ffd1e8;
+  min-height: 80px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.display-value {
+  font-size: 48px;
+  font-weight: 700;
+  color: #c0336e;
+  line-height: 1;
+  word-break: break-all;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Buttons grid
+.calc-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: #ffd1e8;
+  padding: 1px;
+}
+
+.calc-btn {
+  padding: 0;
+  height: 72px;
+  border: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.12s, transform 0.08s;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+
+  &:active { transform: scale(0.93); }
+
+  // Ripple
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.3);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  &:active::after { opacity: 1; }
+}
+
+// Number buttons
+.btn-number {
+  background: #fff5fa;
+  color: #333;
+
+  &:hover { background: #ffe8f4; }
+}
+
+// Zero (spans 2 cols)
+.btn-zero {
+  background: #fff5fa;
+  color: #333;
+  grid-column: span 2;
+
+  &:hover { background: #ffe8f4; }
+}
+
+// Action buttons (C, +/-)
+.btn-action {
+  background: #ffc2e0;
+  color: #9c0052;
+
+  &:hover { background: #ffadd5; }
+}
+
+// Operator buttons
+.btn-operator {
+  background: #ff8fab;
+  color: #fff;
+
+  &:hover { background: #ff7aa0; }
+}
+
+// Equals button
+.btn-equals {
+  background: linear-gradient(135deg, #ff69b4, #ff1493);
+  color: #fff;
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.15);
+
+  &:hover { background: linear-gradient(135deg, #ff55ac, #e0127f); }
+}
+
+// Paw print decoration on equals hover
+.btn-equals::before {
+  content: '🐾';
+  position: absolute;
+  font-size: 28px;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+.btn-equals:hover::before { opacity: 0.15; }
+
+// Stars decoration in background
+.calc-wrapper::before,
+.calc-wrapper::after {
+  content: '✦';
+  position: fixed;
+  font-size: 24px;
+  color: rgba(255, 105, 180, 0.3);
+  animation: float 4s ease-in-out infinite;
+  pointer-events: none;
+}
+.calc-wrapper::before { top: 10%; left: 5%; animation-delay: 0s; }
+.calc-wrapper::after  { top: 20%; right: 8%; animation-delay: 2s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%       { transform: translateY(-12px) rotate(20deg); }
+}
+
+@media (max-width: 380px) {
+  .display-value { font-size: 36px; }
+  .calc-btn { height: 60px; font-size: 18px; }
+}
