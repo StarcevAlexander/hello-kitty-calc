@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, isDevMode } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class PwaInstallService {
@@ -6,16 +6,24 @@ export class PwaInstallService {
 
   readonly canInstall = signal(false);
   readonly isInstalled = signal(false);
+  readonly isDevMode = isDevMode();
 
   constructor() {
     this.detectInstalled();
 
+    if (this.isInstalled()) return;
+
+    if (isDevMode()) {
+      // In dev mode ngsw-worker.js is not generated, so beforeinstallprompt
+      // will never fire. Show a simulated install button for UI testing.
+      this.canInstall.set(true);
+      return;
+    }
+
     window.addEventListener('beforeinstallprompt', (e: Event) => {
       e.preventDefault();
       this.deferredPrompt = e;
-      if (!this.isInstalled()) {
-        this.canInstall.set(true);
-      }
+      this.canInstall.set(true);
     });
 
     window.addEventListener('appinstalled', () => {
@@ -37,6 +45,17 @@ export class PwaInstallService {
   }
 
   async install(): Promise<void> {
+    if (isDevMode()) {
+      // Simulate installation in dev mode
+      this.canInstall.set(false);
+      this.isInstalled.set(true);
+      console.info(
+        '[PWA] Dev mode: install simulated. ' +
+        'For real PWA install run: ng build && npx http-server dist/hello-kitty-calc/browser -p 8080'
+      );
+      return;
+    }
+
     if (!this.deferredPrompt) return;
 
     this.deferredPrompt.prompt();
